@@ -3,7 +3,6 @@ from .models import Users
 
 class UserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(min_length=3, max_length=50)
-    password = serializers.CharField(min_length=3, max_length=50)
     email = serializers.EmailField(
         error_messages={
             'invalid': 'Email must be a valid email address',
@@ -13,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
     name = serializers.CharField(min_length=3, max_length=50)
     class Meta:
         model = Users
-        fields = '__all__'
+        fields = ['name', 'email', 'username']
 
     def create(self, validated_data):
         user = Users.objects.create(email=validated_data['email'], name=validated_data['name'], username=validated_data['username'])

@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import UserSerializer
+from .models import Users
 
 
 # Create your views here.
@@ -19,3 +20,13 @@ def sign_up(request):
         return Response(request.data)
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def get_users(request):
+    all_users = Users.objects.all()
+    serializer = UserSerializer(all_users, many=True)
+    serialized_data = serializer.data
+    print(serialized_data)
+    return Response(serialized_data)
+
+
