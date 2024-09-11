@@ -10,6 +10,7 @@ class Story(models.Model):
     description = models.TextField()
     author_username = models.CharField(max_length=25)
     created_at = models.DateTimeField(default=datetime.datetime.now())
+    image = models.ImageField(upload_to="images/stories/", blank=True, null=True)
 
     REQUIRED_FIELDS = ['title', 'description', 'author_username', 'author_id']
 

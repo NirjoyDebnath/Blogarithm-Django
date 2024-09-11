@@ -8,13 +8,13 @@ class CreateStorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Story
-        fields = ['author_id', 'title', 'description', 'author_username']
+        fields = ['author_id', 'title', 'description', 'author_username', 'image']
 
 
 class StorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Story
-        fields = ['id', 'author_id', 'title', 'description', 'author_username', 'created_at']
+        fields = ['id', 'author_id', 'title', 'description', 'author_username', 'created_at', 'image']
 
 class UpdateStorySerializer(serializers.ModelSerializer):
     class Meta:
