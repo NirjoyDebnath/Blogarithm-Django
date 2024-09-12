@@ -40,6 +40,19 @@ def log_in(request):
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
+def log_out(request):
+    refresh_token = request.data.get('refresh_token', None)
+    if refresh_token:
+        try:
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response({'Message': 'Successfully logged out.'},
+                            status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response({'Message': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'Message': "Can't log out."}, status=status.HTTP_400_BAD_REQUEST)
+
 class UserList(generics.ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = UserSerializer
